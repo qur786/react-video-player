@@ -57,6 +57,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
     return () => {
       video?.removeEventListener("playing", playingEventListener);
       video?.removeEventListener("pause", pauseEventListener);
+      video?.removeEventListener("timeupdate", timeUpdateEventListener);
     };
   }, []);
   return (
