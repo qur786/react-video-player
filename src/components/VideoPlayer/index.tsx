@@ -18,6 +18,7 @@ interface VideoPlayerProps {
  */
 export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayPauseClick: MouseEventHandler<HTMLButtonElement> = () => {
@@ -32,6 +33,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
 
   useEffect(() => {
     const video = videoRef.current;
+
     const playingEventListener = () => {
       setIsPlaying(true);
     };
@@ -40,10 +42,16 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
       setIsPlaying(false);
     };
 
+    const timeUpdateEventListener = () => {
+      setCurrentTime(video?.currentTime ?? 0);
+    };
+
     if (video !== null) {
       video.addEventListener("playing", playingEventListener);
 
       video.addEventListener("pause", pauseEventListener);
+
+      video.addEventListener("timeupdate", timeUpdateEventListener);
     }
 
     return () => {
@@ -52,13 +60,19 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
     };
   }, []);
   return (
-    <div className="w-full h-full">
-      <video controls className="h-full w-full rounded-sm" ref={videoRef}>
+    <div className="w-full h-full flex flex-col">
+      <video
+        controls
+        controlsList="noplay nopause"
+        className="h-full w-full rounded-sm"
+        ref={videoRef}
+      >
         {(Array.isArray(sources) ? sources : [sources]).map((src) => (
           <source key={src} src={src} type={getVideoMIMETypeFromURL(src)} />
         ))}
         <p>Your browser does not support video.</p>
       </video>
+      <input type="range" min={0} max={100} value={currentTime} />
       <button onClick={handlePlayPauseClick}>
         {isPlaying ? (
           <PauseIcon className="h-4 text-black" />
