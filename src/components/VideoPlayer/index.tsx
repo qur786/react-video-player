@@ -20,6 +20,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [playBackSpeed, setPlayBackSpeed] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayPauseClick: MouseEventHandler<HTMLButtonElement> = () => {
@@ -40,6 +41,18 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
       setCurrentTime(value);
       if (videoRef.current !== null) {
         videoRef.current.currentTime = value;
+      }
+    }
+  };
+
+  const handlePlayBackRateChange: ChangeEventHandler<HTMLSelectElement> = (
+    e,
+  ) => {
+    const value = Number.parseFloat(e.currentTarget.value);
+    if (Number.isFinite(value)) {
+      setPlayBackSpeed(value);
+      if (videoRef.current !== null) {
+        videoRef.current.playbackRate = value;
       }
     }
   };
@@ -103,6 +116,22 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
           )}
         </button>
         <p>{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
+        <select
+          id="playback-speed"
+          title="Playback Speed"
+          className="appearance-none px-4"
+          value={playBackSpeed}
+          onChange={handlePlayBackRateChange}
+        >
+          <option value={0.25}>0.25x</option>
+          <option value={0.5}>0.5x</option>
+          <option value={0.75}>0.75x</option>
+          <option value={1}>1x</option>
+          <option value={1.25}>1.25x</option>
+          <option value={1.5}>1.5x</option>
+          <option value={1.75}>1.75x</option>
+          <option value={2}>2x</option>
+        </select>
       </div>
       <input
         type="range"
