@@ -1,4 +1,4 @@
-import type { MouseEventHandler } from "react";
+import type { ChangeEventHandler, MouseEventHandler } from "react";
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { formatTime, getVideoMIMETypeFromURL } from "./utils";
 import { useEffect, useRef, useState } from "react";
@@ -28,6 +28,18 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         videoRef.current.play().catch(console.log);
       } else {
         videoRef.current.pause();
+      }
+    }
+  };
+
+  const handleProgressChange: ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    const value = Number.parseFloat(event.target.value);
+    if (Number.isFinite(value)) {
+      setCurrentTime(value);
+      if (videoRef.current !== null) {
+        videoRef.current.currentTime = value;
       }
     }
   };
@@ -92,7 +104,13 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         </button>
         <p>{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
       </div>
-      <input type="range" min={0} max={duration} value={currentTime} />
+      <input
+        type="range"
+        min={0}
+        max={duration}
+        value={currentTime}
+        onChange={handleProgressChange}
+      />
     </div>
   );
 }
