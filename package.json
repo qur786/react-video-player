@@ -1,15 +1,15 @@
 {
-  "name": "react-vite-template",
+  "name": "react-video-player",
   "version": "1.0.0",
   "private": false,
-  "description": "A React template generated with vite with prettier, eslint, typescript and tailwind-css features for cross-platform development",
-  "homepage": "https://github.com/qur786/react-vite-template#readme",
+  "description": "A react video player.",
+  "homepage": "https://github.com/qur786/react-video-player#readme",
   "bugs": {
-    "url": "https://github.com/qur786/react-vite-template/issues"
+    "url": "https://github.com/qur786/react-video-player/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/qur786/react-vite-template.git"
+    "url": "https://github.com/qur786/react-video-player.git"
   },
   "license": "MIT",
   "author": "Qurban Ahmad <ahmad76qurban@gmail.com>",
