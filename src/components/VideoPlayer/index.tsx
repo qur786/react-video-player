@@ -19,6 +19,7 @@ interface VideoPlayerProps {
 export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayPauseClick: MouseEventHandler<HTMLButtonElement> = () => {
@@ -46,20 +47,28 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
       setCurrentTime(video?.currentTime ?? 0);
     };
 
+    const metaDataLoadEventListener = () => {
+      setDuration(video?.duration ?? 0);
+    };
+
     if (video !== null) {
       video.addEventListener("playing", playingEventListener);
 
       video.addEventListener("pause", pauseEventListener);
 
       video.addEventListener("timeupdate", timeUpdateEventListener);
+
+      video.addEventListener("loadedmetadata", metaDataLoadEventListener);
     }
 
     return () => {
       video?.removeEventListener("playing", playingEventListener);
       video?.removeEventListener("pause", pauseEventListener);
       video?.removeEventListener("timeupdate", timeUpdateEventListener);
+      video?.removeEventListener("loadedmetadata", metaDataLoadEventListener);
     };
   }, []);
+
   return (
     <div className="w-full h-full flex flex-col">
       <video
@@ -73,7 +82,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         ))}
         <p>Your browser does not support video.</p>
       </video>
-      <input type="range" min={0} max={100} value={currentTime} />
+      <input type="range" min={0} max={duration} value={currentTime} />
       <button onClick={handlePlayPauseClick}>
         {isPlaying ? (
           <PauseIcon className="h-4 text-black" />
