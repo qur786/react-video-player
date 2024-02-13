@@ -1,0 +1,49 @@
+{
+  "name": "react-vite-template",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A React template generated with vite with prettier, eslint, typescript and tailwind-css features for cross-platform development",
+  "homepage": "https://github.com/qur786/react-vite-template#readme",
+  "bugs": {
+    "url": "https://github.com/qur786/react-vite-template/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qur786/react-vite-template.git"
+  },
+  "license": "MIT",
+  "author": "Qurban Ahmad <ahmad76qurban@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "clean": "shx rm -rf dist node_modules",
+    "format": "yarn lint && yarn pretty",
+    "lint": "eslint . --ext ts,tsx --fix --report-unused-disable-directives --max-warnings 0",
+    "pretty": "prettier src/**/*.{ts,tsx,js,jsx,css} --write && sort-package-json",
+    "preview": "vite preview",
+    "start": "vite"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.5",
+    "shx": "^0.3.4",
+    "sort-package-json": "^2.7.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.0"
+  }
+}
