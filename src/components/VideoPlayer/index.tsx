@@ -70,7 +70,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col gap-2">
       <video
         controls
         controlsList="noplay nopause"
