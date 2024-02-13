@@ -15,7 +15,7 @@ interface VideoPlayerProps {
  */
 export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   return (
-    <video controls>
+    <video controls className="h-full w-full rounded-sm">
       {(Array.isArray(sources) ? sources : [sources]).map((src) => (
         <source key={src} src={src} type={getVideoMIMETypeFromURL(src)} />
       ))}
