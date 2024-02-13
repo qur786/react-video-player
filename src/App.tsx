@@ -1,3 +1,7 @@
+import { VideoPlayer } from "./components/VideoPlayer";
+
 export function App(): JSX.Element {
-  return <div className="text-center text-2xl text-sky-500">App</div>;
+  return (
+    <VideoPlayer sources="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+  );
 }
