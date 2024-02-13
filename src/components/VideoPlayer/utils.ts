@@ -38,10 +38,14 @@ function getURLExtension(url: string): string {
  * Function to get the video mime type from its URL.
  */
 export function getVideoMIMETypeFromURL(url: string): string | undefined {
-  const extension = getURLExtension(url);
-  const mimeType =
-    VideoExtensionToMIMEDictionary[
-      extension as keyof typeof VideoExtensionToMIMEDictionary
-    ];
-  return mimeType;
+  try {
+    const extension = getURLExtension(url);
+    const mimeType =
+      VideoExtensionToMIMEDictionary[
+        extension as keyof typeof VideoExtensionToMIMEDictionary
+      ];
+    return mimeType;
+  } catch {
+    return undefined;
+  }
 }
