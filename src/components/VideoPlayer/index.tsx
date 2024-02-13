@@ -1,6 +1,6 @@
 import type { MouseEventHandler } from "react";
-import { getVideoMIMETypeFromURL } from "./utils";
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { formatTime, getVideoMIMETypeFromURL } from "./utils";
 import { useEffect, useRef, useState } from "react";
 
 /**
@@ -82,14 +82,17 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         ))}
         <p>Your browser does not support video.</p>
       </video>
+      <div className="flex flex-row">
+        <button onClick={handlePlayPauseClick}>
+          {isPlaying ? (
+            <PauseIcon className="h-4 text-black" />
+          ) : (
+            <PlayIcon className="h-4 text-black" />
+          )}
+        </button>
+        <p>{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
+      </div>
       <input type="range" min={0} max={duration} value={currentTime} />
-      <button onClick={handlePlayPauseClick}>
-        {isPlaying ? (
-          <PauseIcon className="h-4 text-black" />
-        ) : (
-          <PlayIcon className="h-4 text-black" />
-        )}
-      </button>
     </div>
   );
 }
