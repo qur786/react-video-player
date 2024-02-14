@@ -8,9 +8,9 @@ import { useEffect, useRef, useState } from "react";
  */
 interface VideoPlayerProps {
   /**
-   * Source link for the video(s).
+   * Source links for the video(s).
    */
-  sources: string | string[];
+  sources: string[];
 }
 
 /**
@@ -101,7 +101,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         poster="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg" // TODO: take thumbnail as prop
         ref={videoRef}
       >
-        {(Array.isArray(sources) ? sources : [sources]).map((src) => (
+        {sources.map((src) => (
           <source key={src} src={src} type={getVideoMIMETypeFromURL(src)} />
         ))}
         <p>Your browser does not support video.</p>

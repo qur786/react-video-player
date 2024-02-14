@@ -8,12 +8,13 @@ interface VideoPlaylistProps {
 export function VideoPlaylist({ videos }: VideoPlaylistProps): JSX.Element {
   return (
     <>
-      {videos.map(({ thumbnail, title, description }) => (
+      {videos.map(({ thumbnail, title, description, sources }) => (
         <VideoItem
           key={title}
           thumbnail={thumbnail}
           title={title}
           description={description}
+          sources={sources}
         />
       ))}
     </>
