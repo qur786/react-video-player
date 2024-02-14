@@ -97,8 +97,8 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   return (
     <div className="w-full h-full flex flex-col box-border">
       <video
-        controlsList="noplay nopause"
-        className="h-full w-full rounded-xl object-top"
+        className="h-[75vh] w-full rounded-xl object-top bg-black video-thumbnail"
+        poster="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg" // TODO: take thumbnail as prop
         ref={videoRef}
       >
         {(Array.isArray(sources) ? sources : [sources]).map((src) => (
