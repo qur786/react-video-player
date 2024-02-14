@@ -52,3 +52,7 @@
   background: red;
 } 
 */
+
+.custom-scroll {
+  scrollbar-width: thin;
+}
