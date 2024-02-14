@@ -29,7 +29,7 @@ export function VideoItem({
     <div
       data-index={index}
       onClick={handleClick}
-      className="flex flex-row flex-shrink-0 relative gap-2 h-36 overflow-clip hover:cursor-pointer group snap-start"
+      className="flex flex-row flex-shrink-0 relative gap-4 h-36 overflow-clip hover:cursor-pointer group snap-start"
     >
       <PlayIcon className="h-8 z-10 group-hover:scale-150 transition-transform text-white absolute top-1/2 left-1/4 -translate-x-1/4 -translate-y-1/2" />
       <img

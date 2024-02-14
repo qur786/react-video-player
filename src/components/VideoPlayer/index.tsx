@@ -107,29 +107,31 @@ export function VideoPlayer({
 
   return (
     <div
-      className="w-full h-full relative flex flex-col items-center box-border cursor-pointer"
+      className="w-full h-full flex flex-col items-center box-border cursor-pointer"
       onClick={handlePlayPauseClick}
     >
-      {loading ? (
-        <div
-          id="overlay"
-          className="z-10 h-full w-full rounded-lg absolute flex flex-col items-center justify-center bg-black"
+      <div className="md:h-[75vh] h-[90vh] w-3/4 md:w-full relative">
+        {loading ? (
+          <div
+            id="overlay"
+            className="z-10 h-full w-full rounded-lg absolute flex flex-col items-center justify-center bg-black"
+          >
+            <span className="custom-loader"></span>
+          </div>
+        ) : undefined}
+        <video
+          className="w-full h-full rounded-xl object-top bg-black video-thumbnail"
+          poster={thumbnail}
+          ref={videoRef}
+          autoPlay
         >
-          <span className="custom-loader"></span>
-        </div>
-      ) : undefined}
-      <video
-        className="md:h-[75vh] h-[90vh] w-3/4 md:w-full rounded-xl object-top bg-black video-thumbnail"
-        poster={thumbnail}
-        ref={videoRef}
-        autoPlay
-      >
-        {sources.map((src) => (
-          <source key={src} src={src} type={getVideoMIMETypeFromURL(src)} />
-        ))}
-        <p>Your browser does not support video.</p>
-      </video>
-      <div className="flex flex-col w-3/4 md:w-full relative -top-12 px-2 gap-2">
+          {sources.map((src) => (
+            <source key={src} src={src} type={getVideoMIMETypeFromURL(src)} />
+          ))}
+          <p>Your browser does not support video.</p>
+        </video>
+      </div>
+      <div className="flex flex-col w-3/4 md:w-full relative -top-12 px-2 gap-2 z-20">
         <input
           type="range"
           min={0}
@@ -180,7 +182,9 @@ export function VideoPlayer({
             </option>
           </select>
         </div>
-        <h6 className="text-2xl font-bold">{title}</h6>
+        <h6 className="text-xl font-bold text-center py-4 px-2 text-sky-500">
+          {title}
+        </h6>
       </div>
     </div>
   );

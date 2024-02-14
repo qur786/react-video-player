@@ -10,11 +10,11 @@ export function App(): JSX.Element {
       <h2 className="text-center text-2xl text-sky-500 font-bold">
         React Video Player
       </h2>
-      <div className="w-full flex flex-col md:flex-row gap-4 box-border px-4">
-        <div className="w-full md:w-3/5 h-[90%] box-border">
+      <div className="w-full flex flex-col md:gap-4 md:flex-row box-border px-4">
+        <div className="w-full md:w-3/5 md:h-[90%] box-border">
           <VideoPlayer {...VIDEOS[currentVideoIndex]} />
         </div>
-        <div className="flex flex-col gap-4 md:h-[75vh] overflow-y-auto scroll-smooth custom-scroll">
+        <div className="flex flex-col gap-4 items-center md:h-[75vh] overflow-y-auto scroll-smooth custom-scroll">
           <VideoPlaylist videos={VIDEOS} onClick={setCurrentVideoIndex} />
         </div>
       </div>
