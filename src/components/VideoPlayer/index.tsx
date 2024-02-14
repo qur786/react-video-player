@@ -115,7 +115,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
           onChange={handleProgressChange}
           className="progress-bar"
         />
-        <div className="flex flex-row gap-2 w-full">
+        <div className="flex flex-row">
           <button onClick={handlePlayPauseClick}>
             {isPlaying ? (
               <PauseIcon className="h-6 text-white" title="Pause" />
