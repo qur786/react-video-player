@@ -4,6 +4,7 @@ export interface VideoItemProps {
   thumbnail: string;
   title: string;
   description: string;
+  sources: string[];
 }
 
 export function VideoItem({
@@ -20,7 +21,9 @@ export function VideoItem({
       />
       <div className="flex flex-col w-48 group">
         <h6 className="text-lg font-bold">{title}</h6>
-        <p className="text-sm opacity-60">{description.split(".")[0]}</p>
+        <p className="text-sm opacity-60">
+          {description.split(" ").slice(0, 10).join(" ")}
+        </p>
       </div>
     </div>
   );
