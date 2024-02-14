@@ -99,7 +99,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
       <video
         controls
         controlsList="noplay nopause"
-        className="h-full w-full rounded-sm"
+        className="h-full w-full rounded-md bg-black"
         ref={videoRef}
       >
         {(Array.isArray(sources) ? sources : [sources]).map((src) => (
