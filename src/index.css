@@ -9,6 +9,7 @@
 .progress-bar[value] {
   height: 3px;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 /* .progress-bar[value] {
