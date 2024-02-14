@@ -18,12 +18,13 @@ export function VideoPlayer({
   title,
 }: VideoPlayerProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [playBackSpeed, setPlayBackSpeed] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handlePlayPauseClick: MouseEventHandler<HTMLButtonElement> = () => {
+  const handlePlayPauseClick: MouseEventHandler<HTMLElement> = () => {
     if (videoRef.current !== null) {
       if (!isPlaying) {
         videoRef.current.play().catch(console.log);
@@ -85,6 +86,10 @@ export function VideoPlayer({
       video.addEventListener("timeupdate", timeUpdateEventListener);
 
       video.addEventListener("loadedmetadata", metaDataLoadEventListener);
+
+      video.addEventListener("canplaythrough", () => {
+        setLoading(false);
+      });
     }
 
     return () => {
@@ -96,11 +101,24 @@ export function VideoPlayer({
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     videoRef.current?.load();
   }, [sources]); // To reload video element when sources changes
 
   return (
-    <div className="w-full h-full flex flex-col items-center box-border">
+    <div
+      className="w-full h-full relative flex flex-col items-center box-border cursor-pointer"
+      onClick={handlePlayPauseClick}
+    >
+      {loading ? (
+        <div
+          id="overlay"
+          className="z-10 opacity-50 h-full w-full absolute flex flex-col items-center justify-center bg-black"
+        >
+          <p>Loading</p>
+        </div>
+      ) : undefined}
+      {/* TODO: test it. */}
       <video
         className="md:h-[75vh] h-[90vh] w-3/4 md:w-full rounded-xl object-top bg-black video-thumbnail"
         poster={thumbnail}
