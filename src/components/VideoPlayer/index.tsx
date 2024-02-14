@@ -106,27 +106,28 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         ))}
         <p>Your browser does not support video.</p>
       </video>
-      <div className="flex flex-col relative -top-12 px-2">
+      <div className="flex flex-col relative -top-12 px-2 gap-2">
         <input
           type="range"
           min={0}
           max={duration}
           value={currentTime}
           onChange={handleProgressChange}
+          className="progress-bar"
         />
         <div className="flex flex-row gap-2 w-full">
           <button onClick={handlePlayPauseClick}>
             {isPlaying ? (
-              <PauseIcon className="h-6 text-white" />
+              <PauseIcon className="h-6 text-white" title="Pause" />
             ) : (
-              <PlayIcon className="h-6 text-white" />
+              <PlayIcon className="h-6 text-white" title="Play" />
             )}
           </button>
           <p className="text-white">{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
           <select
             id="playback-speed"
             title="Playback Speed"
-            className="appearance-none px-4 bg-transparent text-white focus:outline-none justify-self-end"
+            className="appearance-none px-4 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
             value={playBackSpeed}
             onChange={handlePlayBackRateChange}
           >
