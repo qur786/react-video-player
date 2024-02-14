@@ -113,12 +113,11 @@ export function VideoPlayer({
       {loading ? (
         <div
           id="overlay"
-          className="z-10 opacity-50 h-full w-full absolute flex flex-col items-center justify-center bg-black"
+          className="z-10 h-full w-full rounded-lg absolute flex flex-col items-center justify-center bg-black"
         >
-          <p>Loading</p>
+          <span className="custom-loader"></span>
         </div>
       ) : undefined}
-      {/* TODO: test it. */}
       <video
         className="md:h-[75vh] h-[90vh] w-3/4 md:w-full rounded-xl object-top bg-black video-thumbnail"
         poster={thumbnail}
