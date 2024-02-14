@@ -1,5 +1,5 @@
 import type { ChangeEventHandler, MouseEventHandler } from "react";
-import { PauseIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { PauseIcon, PlayIcon } from "@heroicons/react/16/solid";
 import { formatTime, getVideoMIMETypeFromURL } from "./utils";
 import { useEffect, useRef, useState } from "react";
 
@@ -95,11 +95,10 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col gap-2">
+    <div className="w-full h-full flex flex-col box-border">
       <video
-        controls
         controlsList="noplay nopause"
-        className="h-full w-full rounded-md bg-black"
+        className="h-full w-full rounded-xl object-top"
         ref={videoRef}
       >
         {(Array.isArray(sources) ? sources : [sources]).map((src) => (
@@ -107,39 +106,57 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         ))}
         <p>Your browser does not support video.</p>
       </video>
-      <div className="flex flex-row">
-        <button onClick={handlePlayPauseClick}>
-          {isPlaying ? (
-            <PauseIcon className="h-4 text-black" />
-          ) : (
-            <PlayIcon className="h-4 text-black" />
-          )}
-        </button>
-        <p>{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
-        <select
-          id="playback-speed"
-          title="Playback Speed"
-          className="appearance-none px-4"
-          value={playBackSpeed}
-          onChange={handlePlayBackRateChange}
-        >
-          <option value={0.25}>0.25x</option>
-          <option value={0.5}>0.5x</option>
-          <option value={0.75}>0.75x</option>
-          <option value={1}>1x</option>
-          <option value={1.25}>1.25x</option>
-          <option value={1.5}>1.5x</option>
-          <option value={1.75}>1.75x</option>
-          <option value={2}>2x</option>
-        </select>
+      <div className="flex flex-col relative -top-12 px-2">
+        <input
+          type="range"
+          min={0}
+          max={duration}
+          value={currentTime}
+          onChange={handleProgressChange}
+        />
+        <div className="flex flex-row gap-2 w-full">
+          <button onClick={handlePlayPauseClick}>
+            {isPlaying ? (
+              <PauseIcon className="h-6 text-white" />
+            ) : (
+              <PlayIcon className="h-6 text-white" />
+            )}
+          </button>
+          <p className="text-white">{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
+          <select
+            id="playback-speed"
+            title="Playback Speed"
+            className="appearance-none px-4 bg-transparent text-white focus:outline-none justify-self-end"
+            value={playBackSpeed}
+            onChange={handlePlayBackRateChange}
+          >
+            <option value={0.25} className="text-black">
+              0.25x
+            </option>
+            <option value={0.5} className="text-black">
+              0.5x
+            </option>
+            <option value={0.75} className="text-black">
+              0.75x
+            </option>
+            <option value={1} className="text-black">
+              1x
+            </option>
+            <option value={1.25} className="text-black">
+              1.25x
+            </option>
+            <option value={1.5} className="text-black">
+              1.5x
+            </option>
+            <option value={1.75} className="text-black">
+              1.75x
+            </option>
+            <option value={2} className="text-black">
+              2x
+            </option>
+          </select>
+        </div>
       </div>
-      <input
-        type="range"
-        min={0}
-        max={duration}
-        value={currentTime}
-        onChange={handleProgressChange}
-      />
     </div>
   );
 }
