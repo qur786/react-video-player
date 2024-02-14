@@ -95,9 +95,9 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col box-border">
+    <div className="w-full h-full flex flex-col items-center box-border">
       <video
-        className="h-[75vh] w-full rounded-xl object-top bg-black video-thumbnail"
+        className="md:h-[75vh] h-[90vh] w-3/4 md:w-full rounded-xl object-top bg-black video-thumbnail"
         poster="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg" // TODO: take thumbnail as prop
         ref={videoRef}
       >
@@ -106,7 +106,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
         ))}
         <p>Your browser does not support video.</p>
       </video>
-      <div className="flex flex-col relative -top-12 px-2 gap-2">
+      <div className="flex flex-col w-3/4 md:w-full relative -top-12 px-2 gap-2">
         <input
           type="range"
           min={0}
