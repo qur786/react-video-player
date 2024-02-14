@@ -1,3 +1,4 @@
+import type { VideoItem } from "../VideoItem";
 import type { ChangeEventHandler, MouseEventHandler } from "react";
 import { PauseIcon, PlayIcon } from "@heroicons/react/16/solid";
 import { formatTime, getVideoMIMETypeFromURL } from "./utils";
@@ -6,17 +7,16 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Props for VideoPlayer component.
  */
-interface VideoPlayerProps {
-  /**
-   * Source links for the video(s).
-   */
-  sources: string[];
-}
+type VideoPlayerProps = VideoItem;
 
 /**
  * React component to play video.
  */
-export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
+export function VideoPlayer({
+  sources,
+  thumbnail,
+  title,
+}: VideoPlayerProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -74,6 +74,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
 
     const metaDataLoadEventListener = () => {
       setDuration(video?.duration ?? 0);
+      setIsPlaying(false);
     };
 
     if (video !== null) {
@@ -94,12 +95,17 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
     };
   }, []);
 
+  useEffect(() => {
+    videoRef.current?.load();
+  }, [sources]); // To reload video element when sources changes
+
   return (
     <div className="w-full h-full flex flex-col items-center box-border">
       <video
         className="md:h-[75vh] h-[90vh] w-3/4 md:w-full rounded-xl object-top bg-black video-thumbnail"
-        poster="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg" // TODO: take thumbnail as prop
+        poster={thumbnail}
         ref={videoRef}
+        autoPlay
       >
         {sources.map((src) => (
           <source key={src} src={src} type={getVideoMIMETypeFromURL(src)} />
@@ -157,6 +163,7 @@ export function VideoPlayer({ sources }: VideoPlayerProps): JSX.Element {
             </option>
           </select>
         </div>
+        <h6 className="text-2xl font-bold">{title}</h6>
       </div>
     </div>
   );
