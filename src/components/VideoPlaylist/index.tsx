@@ -21,7 +21,7 @@ export function VideoPlaylist({
           setVideos(arrayMove(videos, oldIndex, newIndex));
         }}
         renderList={({ children, props }) => (
-          <ul className="overflow-y-scroll" {...props}>
+          <ul className="overflow-y-auto" {...props}>
             {children}
           </ul>
         )}
