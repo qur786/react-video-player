@@ -6,6 +6,7 @@ export interface VideoItem {
   title: string;
   description: string;
   sources: string[];
+  subtitle?: string;
 }
 
 export interface VideoItemProps extends VideoItem {
@@ -20,23 +21,26 @@ export function VideoItem({
   index,
   onClick,
 }: VideoItemProps): JSX.Element {
-  const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleClick: MouseEventHandler<HTMLImageElement> = (e) => {
+    e.stopPropagation();
+    console.log(
+      Number.parseInt(e.currentTarget.getAttribute("data-index") ?? ""),
+    );
     onClick?.(
       Number.parseInt(e.currentTarget.getAttribute("data-index") ?? ""),
     );
   };
   return (
-    <div
-      data-index={index}
-      onClick={handleClick}
-      className="flex flex-row flex-shrink-0 relative gap-4 h-36 overflow-clip hover:cursor-pointer group snap-start"
-    >
-      <PlayIcon className="h-8 z-10 group-hover:scale-150 transition-transform text-white absolute top-1/2 left-1/4 -translate-x-1/4 -translate-y-1/2" />
+    <div className="flex flex-row flex-shrink-0 relative gap-4 h-36 overflow-clip hover:cursor-pointer snap-start">
       <img
         src={thumbnail}
-        className="w-48 rounded-lg object-cover group-hover:grayscale-[80%]"
+        data-index={index}
+        onClick={handleClick}
+        className="w-48 rounded-lg object-cover peer hover:grayscale-[80%]"
       />
-      <div className="flex flex-col w-48 group">
+      <PlayIcon className="h-8 z-10 peer-hover:scale-150 hover:scale-150 peer transition-transform text-white absolute top-1/2 left-1/4 -translate-x-1/4 -translate-y-1/2" />
+      {/* To make any entity movable by some interactive element, then we need to use data-movable-handle as per react-movable package. Ref: https://github.com/tajo/react-movable/blob/0df486a69ec122ea18229b85e0d60dc5f6091612/examples/Handle.tsx#L101 */}
+      <div className="flex flex-col w-48 cursor-move" data-movable-handle>
         <h6 className="text-lg font-bold">{title}</h6>
         <p className="text-sm opacity-60">
           {description.split(" ").slice(0, 10).join(" ")}
