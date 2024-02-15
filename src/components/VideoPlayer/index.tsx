@@ -107,7 +107,7 @@ export function VideoPlayer({
 
   return (
     <div
-      className="w-full h-full flex flex-col items-center box-border cursor-pointer"
+      className="w-full h-full flex flex-col items-center box-border"
       onClick={handlePlayPauseClick}
     >
       <div className="md:h-[75vh] h-[90vh] w-3/4 md:w-full relative">
@@ -120,7 +120,7 @@ export function VideoPlayer({
           </div>
         ) : undefined}
         <video
-          className="w-full h-full rounded-xl object-center bg-black video-thumbnail"
+          className="w-full h-full rounded-xl object-center bg-black video-thumbnail cursor-pointer"
           poster={thumbnail}
           ref={videoRef}
           autoPlay
