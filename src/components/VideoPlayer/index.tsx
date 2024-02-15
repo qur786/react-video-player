@@ -1,6 +1,10 @@
 import type { VideoItem } from "../VideoItem";
+import {
+  ArrowsPointingOutIcon,
+  PauseIcon,
+  PlayIcon,
+} from "@heroicons/react/16/solid";
 import type { ChangeEventHandler, MouseEventHandler } from "react";
-import { PauseIcon, PlayIcon } from "@heroicons/react/16/solid";
 import { formatTime, getVideoMIMETypeFromURL } from "./utils";
 import { useEffect, useRef, useState } from "react";
 
@@ -55,6 +59,14 @@ export function VideoPlayer({
       if (videoRef.current !== null) {
         videoRef.current.playbackRate = value;
       }
+    }
+  };
+
+  const handleFullScreenClick: MouseEventHandler<HTMLButtonElement> = () => {
+    if (videoRef.current !== null) {
+      videoRef.current
+        .requestFullscreen({ navigationUI: "hide" })
+        .catch(console.log);
     }
   };
 
@@ -151,41 +163,46 @@ export function VideoPlayer({
             </button>
             <p className="text-white">{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
           </div>
-          <select
-            id="playback-speed"
-            title="Playback Speed"
-            className="appearance-none px-2 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
-            value={playBackSpeed}
-            onChange={handlePlayBackRateChange}
-            onClick={(e) => {
-              e.stopPropagation();
-            }} // To prevent clicking of parent div
-          >
-            <option value={0.25} className="text-black">
-              0.25x
-            </option>
-            <option value={0.5} className="text-black">
-              0.5x
-            </option>
-            <option value={0.75} className="text-black">
-              0.75x
-            </option>
-            <option value={1} className="text-black">
-              1x
-            </option>
-            <option value={1.25} className="text-black">
-              1.25x
-            </option>
-            <option value={1.5} className="text-black">
-              1.5x
-            </option>
-            <option value={1.75} className="text-black">
-              1.75x
-            </option>
-            <option value={2} className="text-black">
-              2x
-            </option>
-          </select>
+          <div className="flex flex-row gap-2">
+            <select
+              id="playback-speed"
+              title="Playback Speed"
+              className="appearance-none px-2 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
+              value={playBackSpeed}
+              onChange={handlePlayBackRateChange}
+              onClick={(e) => {
+                e.stopPropagation();
+              }} // To prevent clicking of parent div
+            >
+              <option value={0.25} className="text-black">
+                0.25x
+              </option>
+              <option value={0.5} className="text-black">
+                0.5x
+              </option>
+              <option value={0.75} className="text-black">
+                0.75x
+              </option>
+              <option value={1} className="text-black">
+                1x
+              </option>
+              <option value={1.25} className="text-black">
+                1.25x
+              </option>
+              <option value={1.5} className="text-black">
+                1.5x
+              </option>
+              <option value={1.75} className="text-black">
+                1.75x
+              </option>
+              <option value={2} className="text-black">
+                2x
+              </option>
+            </select>
+            <button onClick={handleFullScreenClick}>
+              <ArrowsPointingOutIcon className="h-6 text-white" />
+            </button>
+          </div>
         </div>
         <h6 className="text-xl font-bold text-center py-4 px-2 text-sky-500">
           {title}
