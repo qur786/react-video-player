@@ -157,6 +157,9 @@ export function VideoPlayer({
             className="appearance-none px-2 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
             value={playBackSpeed}
             onChange={handlePlayBackRateChange}
+            onClick={(e) => {
+              e.stopPropagation();
+            }} // To prevent clicking of parent div
           >
             <option value={0.25} className="text-black">
               0.25x
