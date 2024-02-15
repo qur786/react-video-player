@@ -140,19 +140,21 @@ export function VideoPlayer({
           onChange={handleProgressChange}
           className="progress-bar"
         />
-        <div className="flex flex-row">
-          <button onClick={handlePlayPauseClick}>
-            {isPlaying ? (
-              <PauseIcon className="h-6 text-white" title="Pause" />
-            ) : (
-              <PlayIcon className="h-6 text-white" title="Play" />
-            )}
-          </button>
-          <p className="text-white">{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-row gap-2">
+            <button onClick={handlePlayPauseClick}>
+              {isPlaying ? (
+                <PauseIcon className="h-6 text-white" title="Pause" />
+              ) : (
+                <PlayIcon className="h-6 text-white" title="Play" />
+              )}
+            </button>
+            <p className="text-white">{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
+          </div>
           <select
             id="playback-speed"
             title="Playback Speed"
-            className="appearance-none px-4 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
+            className="appearance-none px-2 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
             value={playBackSpeed}
             onChange={handlePlayBackRateChange}
           >
