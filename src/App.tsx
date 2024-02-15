@@ -30,7 +30,7 @@ export function App(): JSX.Element {
         >
           <VideoPlayer {...videos[currentVideoIndex]} />
         </div>
-        <div className="flex flex-col gap-4 items-center md:h-[75vh] overflow-y-auto scroll-smooth custom-scroll">
+        <div className="flex flex-col gap-4 md:items-center md:h-[75vh] overflow-y-auto scroll-smooth custom-scroll">
           <VideoPlaylist
             videos={videos}
             setVideos={setVideos}

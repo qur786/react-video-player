@@ -110,7 +110,7 @@ export function VideoPlayer({
       className="w-full h-full flex flex-col items-center box-border"
       onClick={handlePlayPauseClick}
     >
-      <div className="md:h-[75vh] h-[90vh] w-3/4 md:w-full relative">
+      <div className="md:h-[75vh] h-[50vh] w-full md:w-full relative">
         {loading ? (
           <div
             id="overlay"

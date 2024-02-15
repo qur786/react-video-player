@@ -14,47 +14,34 @@ export function VideoPlaylist({
   onClick,
 }: VideoPlaylistProps): JSX.Element {
   return (
-    <>
-      <List
-        values={videos}
-        onChange={({ oldIndex, newIndex }) => {
-          setVideos(arrayMove(videos, oldIndex, newIndex));
-        }}
-        renderList={({ children, props }) => (
-          <ul className="overflow-y-auto" {...props}>
-            {children}
-          </ul>
-        )}
-        renderItem={({
-          value: { title, thumbnail, description, sources },
-          props,
-          index,
-        }) => {
-          return (
-            <li className="py-2 list-none" {...props} key={title}>
-              <VideoItem
-                thumbnail={thumbnail}
-                title={title}
-                description={description}
-                sources={sources}
-                index={index ?? 0}
-                onClick={onClick}
-              />
-            </li>
-          );
-        }}
-      />
-      {/* {videos.map(({ thumbnail, title, description, sources }, index) => (
-        <VideoItem
-          key={title}
-          thumbnail={thumbnail}
-          title={title}
-          description={description}
-          sources={sources}
-          index={index}
-          onClick={onClick}
-        />
-      ))} */}
-    </>
+    <List
+      values={videos}
+      onChange={({ oldIndex, newIndex }) => {
+        setVideos(arrayMove(videos, oldIndex, newIndex));
+      }}
+      renderList={({ children, props }) => (
+        <ul className="overflow-y-auto" {...props}>
+          {children}
+        </ul>
+      )}
+      renderItem={({
+        value: { title, thumbnail, description, sources },
+        props,
+        index,
+      }) => {
+        return (
+          <li className="py-2 list-none" {...props} key={title}>
+            <VideoItem
+              thumbnail={thumbnail}
+              title={title}
+              description={description}
+              sources={sources}
+              index={index ?? 0}
+              onClick={onClick}
+            />
+          </li>
+        );
+      }}
+    />
   );
 }
