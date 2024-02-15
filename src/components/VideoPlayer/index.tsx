@@ -120,7 +120,7 @@ export function VideoPlayer({
           </div>
         ) : undefined}
         <video
-          className="w-full h-full rounded-xl object-top bg-black video-thumbnail"
+          className="w-full h-full rounded-xl object-center bg-black video-thumbnail"
           poster={thumbnail}
           ref={videoRef}
           autoPlay
