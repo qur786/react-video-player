@@ -6,11 +6,11 @@ import { useRef, useState } from "react";
 
 export function App(): JSX.Element {
   const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem>(VIDEOS[0]);
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
   const handleVideoItemClick = (index: number) => {
-    setCurrentVideoIndex(index);
+    setSelectedVideo(videos[index]);
     if (window.matchMedia("(max-width: 768px)").matches) {
       videoContainerRef.current?.scrollIntoView({
         behavior: "smooth",
@@ -28,7 +28,7 @@ export function App(): JSX.Element {
           className="w-full md:w-3/5 md:h-[90%] box-border"
           ref={videoContainerRef}
         >
-          <VideoPlayer {...videos[currentVideoIndex]} />
+          <VideoPlayer {...selectedVideo} />
         </div>
         <div className="flex flex-col gap-4 md:items-center md:h-[75vh] overflow-y-auto scroll-smooth custom-scroll">
           <VideoPlaylist
