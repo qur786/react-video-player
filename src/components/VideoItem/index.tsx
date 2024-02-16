@@ -7,6 +7,7 @@ export interface VideoItem {
   description: string;
   sources: string[];
   subtitle?: string;
+  initialTime?: number;
 }
 
 export interface VideoItemProps extends VideoItem {
