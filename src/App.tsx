@@ -2,11 +2,13 @@ import { VIDEOS } from "./data";
 import type { VideoItem } from "./components/VideoItem";
 import { VideoPlayer } from "./components/VideoPlayer";
 import { VideoPlaylist } from "./components/VideoPlaylist";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 export function App(): JSX.Element {
   const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
-  const [selectedVideo, setSelectedVideo] = useState<VideoItem>(VIDEOS[0]);
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem>(
+    VIDEOS[VIDEOS.length - 1],
+  );
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
   const handleVideoItemClick = (index: number) => {
@@ -18,6 +20,16 @@ export function App(): JSX.Element {
     }
   };
 
+  const handleVideoEnd = useCallback(() => {
+    setVideos((prev) => {
+      setSelectedVideo(prev[0]);
+      const firstVideo = prev[0];
+      const newVideos = [...prev.slice(1)];
+      const output = [...newVideos, firstVideo];
+      return output;
+    });
+  }, []);
+
   return (
     <div className="h-screen flex flex-col gap-4 py-4 box-border">
       <h2 className="text-center text-2xl text-sky-500 font-bold">
@@ -28,7 +40,7 @@ export function App(): JSX.Element {
           className="w-full md:w-3/5 md:h-[90%] box-border"
           ref={videoContainerRef}
         >
-          <VideoPlayer {...selectedVideo} />
+          <VideoPlayer {...selectedVideo} onVideoEnd={handleVideoEnd} />
         </div>
         <div className="flex flex-col gap-4 md:items-center md:h-[75vh] overflow-y-auto scroll-smooth custom-scroll">
           <VideoPlaylist

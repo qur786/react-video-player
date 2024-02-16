@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import type { VideoItem } from "../VideoItem";
 import {
   ArrowsPointingOutIcon,
@@ -13,7 +14,9 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Props for VideoPlayer component.
  */
-type VideoPlayerProps = VideoItem;
+interface VideoPlayerProps extends VideoItem {
+  onVideoEnd?: (videoElement: HTMLVideoElement) => void;
+}
 
 /**
  * React component to play video.
@@ -22,6 +25,7 @@ export function VideoPlayer({
   sources,
   thumbnail,
   title,
+  onVideoEnd,
 }: VideoPlayerProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -86,35 +90,50 @@ export function VideoPlayer({
   useEffect(() => {
     const video = videoRef.current;
 
-    const playingEventListener = () => {
-      setIsPlaying(true);
-    };
-
-    const pauseEventListener = () => {
-      setIsPlaying(false);
-    };
-
-    const timeUpdateEventListener = () => {
-      setCurrentTime(video?.currentTime ?? 0);
-    };
-
-    const metaDataLoadEventListener = () => {
-      setDuration(video?.duration ?? 0);
-      setIsPlaying(false);
-    };
+    let playingEventListener = () => {};
+    let pauseEventListener = () => {};
+    let timeUpdateEventListener = () => {};
+    let metaDataLoadEventListener = () => {};
+    let canPlayEventListener = () => {};
+    let endEventListener = () => {};
 
     if (video !== null) {
+      playingEventListener = () => {
+        setIsPlaying(true);
+      };
+
+      pauseEventListener = () => {
+        setIsPlaying(false);
+      };
+
+      timeUpdateEventListener = () => {
+        setCurrentTime(video.currentTime);
+      };
+
+      metaDataLoadEventListener = () => {
+        setDuration(video.duration);
+        setIsPlaying(false);
+      };
+
+      canPlayEventListener = () => {
+        setLoading(false);
+      };
+
+      endEventListener = () => {
+        onVideoEnd?.(video);
+      };
+
       video.addEventListener("playing", playingEventListener);
 
       video.addEventListener("pause", pauseEventListener);
+
+      video.addEventListener("ended", endEventListener);
 
       video.addEventListener("timeupdate", timeUpdateEventListener);
 
       video.addEventListener("loadedmetadata", metaDataLoadEventListener);
 
-      video.addEventListener("canplaythrough", () => {
-        setLoading(false);
-      });
+      video.addEventListener("canplaythrough", canPlayEventListener);
     }
 
     return () => {
@@ -122,8 +141,10 @@ export function VideoPlayer({
       video?.removeEventListener("pause", pauseEventListener);
       video?.removeEventListener("timeupdate", timeUpdateEventListener);
       video?.removeEventListener("loadedmetadata", metaDataLoadEventListener);
+      video?.removeEventListener("loadedmetadata", canPlayEventListener);
+      video?.removeEventListener("loadedmetadata", endEventListener);
     };
-  }, []);
+  }, [onVideoEnd]);
 
   useEffect(() => {
     setLoading(true);
