@@ -29,15 +29,10 @@ export function VideoPlaylist({
   updateVideos,
   onClick,
 }: VideoPlaylistProps): JSX.Element {
-  const [currentVideos, setCurrentVideos] = useState(videos); // To store the videos that filters with search text.
   const [search, setSearch] = useState(""); // For search string
 
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearch(e.target.value);
-    const fileteredVideos = videos.filter((ele) =>
-      ele.title.toLocaleLowerCase().startsWith(e.target.value.toLowerCase()),
-    ); // Filtering videos from original video list and then setting it to the current video list to show users searched videos
-    setCurrentVideos(fileteredVideos);
   };
 
   return (
@@ -53,11 +48,11 @@ export function VideoPlaylist({
       <List
         values={
           search.length > 0
-            ? currentVideos.map((ele) => ({ ...ele, disabled: true }))
-            : currentVideos // To disable moveability on search
+            ? videos.map((ele) => ({ ...ele, disabled: true })) // To disable moveability on search
+            : videos
         }
         onChange={({ oldIndex, newIndex }) => {
-          updateVideos(arrayMove(currentVideos, oldIndex, newIndex)); // To update original video index on move
+          updateVideos(arrayMove(videos, oldIndex, newIndex)); // To update original video index on move
         }}
         renderList={({ children, props }) => (
           <ul className="overflow-y-auto" {...props}>
@@ -70,7 +65,15 @@ export function VideoPlaylist({
           index,
         }) => {
           return (
-            <li className="py-2 list-none" {...props} key={title}>
+            <li
+              className="py-2 list-none"
+              hidden={
+                search.length > 0 &&
+                !title.toLowerCase().startsWith(search.toLowerCase())
+              } // To hide video items which does not start with the search string
+              {...props}
+              key={title}
+            >
               <VideoItem
                 thumbnail={thumbnail}
                 title={title}

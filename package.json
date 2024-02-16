@@ -15,7 +15,7 @@
   "author": "Qurban Ahmad <ahmad76qurban@gmail.com>",
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "cross-env NODE_ENV=production tsc && vite build",
     "clean": "shx rm -rf dist node_modules",
     "format": "yarn lint && yarn pretty",
     "lint": "eslint . --ext ts,tsx --fix --report-unused-disable-directives --max-warnings 0",
@@ -36,6 +36,7 @@
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.17",
+    "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
