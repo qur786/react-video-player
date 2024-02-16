@@ -3,6 +3,8 @@ import {
   ArrowsPointingOutIcon,
   PauseIcon,
   PlayIcon,
+  SpeakerWaveIcon,
+  SpeakerXMarkIcon,
 } from "@heroicons/react/16/solid";
 import type { ChangeEventHandler, MouseEventHandler } from "react";
 import { formatTime, getVideoMIMETypeFromURL } from "./utils";
@@ -26,6 +28,7 @@ export function VideoPlayer({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [playBackSpeed, setPlayBackSpeed] = useState(1);
+  const [volume, setVolume] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayPauseClick: MouseEventHandler<HTMLElement> = () => {
@@ -46,6 +49,16 @@ export function VideoPlayer({
       setCurrentTime(value);
       if (videoRef.current !== null) {
         videoRef.current.currentTime = value;
+      }
+    }
+  };
+
+  const handleVolumeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const value = Number.parseFloat(event.target.value);
+    if (Number.isFinite(value)) {
+      setVolume(value);
+      if (videoRef.current !== null) {
+        videoRef.current.volume = value;
       }
     }
   };
@@ -117,6 +130,12 @@ export function VideoPlayer({
     videoRef.current?.load();
   }, [sources]); // To reload video element when sources changes
 
+  useEffect(() => {
+    if (videoRef.current !== null) {
+      setVolume(videoRef.current.volume);
+    }
+  }, []);
+
   return (
     <div
       className="w-full h-full flex flex-col items-center box-border"
@@ -164,6 +183,27 @@ export function VideoPlayer({
             <p className="text-white">{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
           </div>
           <div className="flex flex-row gap-2">
+            <div className="flex flex-row-reverse group gap-2 items-center">
+              <button className="peer group">
+                {volume === 0 ? (
+                  <SpeakerXMarkIcon className="h-6 text-white" />
+                ) : (
+                  <SpeakerWaveIcon className="h-6 text-white" />
+                )}
+              </button>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.1}
+                value={volume}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }} // To prevent clicking of parent div
+                onChange={handleVolumeChange}
+                className="progress-bar hidden group-hover:block group-hover:animate-increase-width"
+              />
+            </div>
             <select
               id="playback-speed"
               title="Playback Speed"
