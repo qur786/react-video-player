@@ -137,10 +137,7 @@ export function VideoPlayer({
   }, []);
 
   return (
-    <div
-      className="w-full h-full flex flex-col items-center box-border"
-      onClick={handlePlayPauseClick}
-    >
+    <div className="w-full h-full flex flex-col items-center box-border">
       <div className="md:h-[75vh] h-[50vh] w-full md:w-full relative">
         {loading ? (
           <div
@@ -154,6 +151,7 @@ export function VideoPlayer({
           className="w-full h-full rounded-xl object-center bg-black video-thumbnail cursor-pointer"
           poster={thumbnail}
           ref={videoRef}
+          onClick={handlePlayPauseClick}
           autoPlay
         >
           {sources.map((src) => (
@@ -162,7 +160,7 @@ export function VideoPlayer({
           <p>Your browser does not support video.</p>
         </video>
       </div>
-      <div className="flex flex-col w-3/4 md:w-full relative -top-12 px-2 gap-2 z-20">
+      <div className="flex flex-col w-full relative -top-12 px-2 gap-2 z-20 flex-nowrap">
         <input
           type="range"
           min={0}
@@ -183,7 +181,7 @@ export function VideoPlayer({
             <p className="text-white">{`${formatTime(currentTime)}/${formatTime(duration)}`}</p>
           </div>
           <div className="flex flex-row gap-2">
-            <div className="flex flex-row-reverse group gap-2 items-center">
+            <div className="flex flex-row-reverse group gap-2 items-center px-2">
               <button className="peer group">
                 {volume === 0 ? (
                   <SpeakerXMarkIcon className="h-6 text-white" />
@@ -201,13 +199,13 @@ export function VideoPlayer({
                   e.stopPropagation();
                 }} // To prevent clicking of parent div
                 onChange={handleVolumeChange}
-                className="progress-bar hidden group-hover:block group-hover:animate-increase-width"
+                className="progress-bar hidden w-full group-hover:block group-hover:animate-increase-width"
               />
             </div>
             <select
               id="playback-speed"
               title="Playback Speed"
-              className="appearance-none px-2 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
+              className="appearance-none md:px-2 hover:cursor-pointer bg-transparent text-white focus:outline-none justify-self-end"
               value={playBackSpeed}
               onChange={handlePlayBackRateChange}
               onClick={(e) => {
