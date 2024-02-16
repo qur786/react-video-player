@@ -59,7 +59,7 @@ export function App(): JSX.Element {
         <div className="flex flex-col gap-4 md:items-center md:h-[75vh] overflow-y-auto scroll-smooth custom-scroll">
           <VideoPlaylist
             videos={videos}
-            setVideos={setVideos}
+            updateVideos={setVideos}
             onClick={handleVideoItemClick}
           />
         </div>

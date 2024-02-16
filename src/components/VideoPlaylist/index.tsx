@@ -3,18 +3,33 @@ import { VideoItem } from "../VideoItem";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { List, arrayMove } from "react-movable";
 
+/**
+ * Props for VideoPlaylist component.
+ */
 interface VideoPlaylistProps {
+  /**
+   * Videos data.
+   */
   videos: VideoItem[];
-  setVideos: Dispatch<SetStateAction<VideoItem[]>>;
+  /**
+   * Function to update videos. Used for updating the ordering of the videos in the original lsit.
+   */
+  updateVideos: Dispatch<SetStateAction<VideoItem[]>>;
+  /**
+   * Click event handler for playlist individual video.
+   */
   onClick?: (index: number) => void;
 }
 
+/**
+ * React component to render video playlist.
+ */
 export function VideoPlaylist({
   videos,
-  setVideos,
+  updateVideos,
   onClick,
 }: VideoPlaylistProps): JSX.Element {
-  const [currentVideos, setCurrentVideos] = useState(videos);
+  const [currentVideos, setCurrentVideos] = useState(videos); // To store the videos that filters with search text.
   const [search, setSearch] = useState(""); // For search string
 
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -42,7 +57,7 @@ export function VideoPlaylist({
             : currentVideos // To disable moveability on search
         }
         onChange={({ oldIndex, newIndex }) => {
-          setVideos(arrayMove(currentVideos, oldIndex, newIndex)); // To update original video index on move
+          updateVideos(arrayMove(currentVideos, oldIndex, newIndex)); // To update original video index on move
         }}
         renderList={({ children, props }) => (
           <ul className="overflow-y-auto" {...props}>
