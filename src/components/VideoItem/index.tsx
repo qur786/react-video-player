@@ -23,9 +23,6 @@ export function VideoItem({
 }: VideoItemProps): JSX.Element {
   const handleClick: MouseEventHandler<HTMLImageElement> = (e) => {
     e.stopPropagation();
-    console.log(
-      Number.parseInt(e.currentTarget.getAttribute("data-index") ?? ""),
-    );
     onClick?.(
       Number.parseInt(e.currentTarget.getAttribute("data-index") ?? ""),
     );
