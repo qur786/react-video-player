@@ -36,7 +36,7 @@ export function VideoPlaylist({
   };
 
   return (
-    <div className="flex flex-col gap-2 md:w-96 w-screen">
+    <div className="flex flex-col gap-2 md:w-96 w-[90vw] box-border md:items-center md:h-[75vh]">
       <input
         id="video-search"
         type="search"
@@ -55,7 +55,7 @@ export function VideoPlaylist({
           updateVideos(arrayMove(videos, oldIndex, newIndex)); // To update original video index on move
         }}
         renderList={({ children, props }) => (
-          <ul className="overflow-y-auto" {...props}>
+          <ul className="overflow-y-auto custom-scroll" {...props}>
             {children}
           </ul>
         )}
