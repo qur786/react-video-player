@@ -174,6 +174,12 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       }
     }, []); // To store the volume in the state variable for the first time when the video is loaded.
 
+    useEffect(() => {
+      if (videoRef.current !== null) {
+        setPlayBackSpeed(videoRef.current.playbackRate);
+      }
+    }, [sources]); // To store the playback spped in the state when the video changes, since playback rate for each new video will be set to normal initially by default.
+
     return (
       <div className="w-full md:w-3/5 md:h-[90%] flex flex-col items-center box-border">
         <div className="md:h-[75vh] h-[50vh] w-full md:w-full relative">
