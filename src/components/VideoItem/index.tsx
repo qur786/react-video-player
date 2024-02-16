@@ -1,21 +1,57 @@
 import type { MouseEventHandler } from "react";
 import { PlayIcon } from "@heroicons/react/16/solid";
 
+/**
+ * Props for individual video.
+ */
 export interface VideoItem {
+  /**
+   * Thumbnail url of the video.
+   */
   thumbnail: string;
+  /**
+   * Title of the video.
+   */
   title: string;
+  /**
+   * Description of the video.
+   */
   description: string;
+  /**
+   * set of URLs of the video.
+   */
   sources: string[];
+  /**
+   * Subtitle for the video.
+   */
   subtitle?: string;
+  /**
+   * Initial time where the video should start.
+   */
   initialTime?: number;
 }
 
+/**
+ * Props for the VideoItem component.
+ */
 export interface VideoItemProps extends VideoItem {
+  /**
+   * Click handler for the play list item.
+   */
   onClick?: (index: number) => void;
+  /**
+   * Index of the video item.
+   */
   index: number;
+  /**
+   * If move is disabled or not.
+   */
   moveDisabled?: boolean;
 }
 
+/**
+ * The component for individual video in the VideoPlaylist.
+ */
 export function VideoItem({
   thumbnail,
   title,
