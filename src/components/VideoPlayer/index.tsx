@@ -21,6 +21,9 @@ import {
  * Props for VideoPlayer component.
  */
 interface VideoPlayerProps extends VideoItem {
+  /**
+   * Event handler for video end event.
+   */
   onVideoEnd?: (videoElement: HTMLVideoElement) => void;
 }
 
@@ -32,8 +35,8 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
     { sources, thumbnail, title, onVideoEnd, initialTime },
     ref,
   ): JSX.Element {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false); // To store the state if the video is playing or not.
+    const [loading, setLoading] = useState(false); // To show loading overlay when video is loading
     const [currentTime, setCurrentTime] = useState(initialTime ?? 0);
     const [duration, setDuration] = useState(0);
     const [playBackSpeed, setPlayBackSpeed] = useState(1);
@@ -169,7 +172,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       if (videoRef.current !== null) {
         setVolume(videoRef.current.volume);
       }
-    }, []);
+    }, []); // To store the volume in the state variable for the first time when the video is loaded.
 
     return (
       <div className="w-full h-full flex flex-col items-center box-border">
