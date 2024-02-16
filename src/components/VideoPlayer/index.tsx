@@ -163,7 +163,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       if (videoRef.current !== null) {
         videoRef.current.currentTime = initialTime ?? 0;
       }
-    }, [initialTime, sources]); // To reload video element when sources changes
+    }, [initialTime, sources]); // To reload video element when sources changes otherwise video won't change
 
     useEffect(() => {
       if (videoRef.current !== null) {
