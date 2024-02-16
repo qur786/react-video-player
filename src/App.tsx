@@ -5,11 +5,11 @@ import { VideoPlaylist } from "./components/VideoPlaylist";
 import { useCallback, useRef, useState } from "react";
 
 export function App(): JSX.Element {
-  const [videos, setVideos] = useState<VideoItem[]>(VIDEOS);
+  const [videos, setVideos] = useState<VideoItem[]>(VIDEOS); // The original videos.
   const [selectedVideo, setSelectedVideo] = useState<VideoItem>(
     VIDEOS[VIDEOS.length - 1],
-  );
-  const videoRef = useRef<HTMLVideoElement>(null);
+  ); // The selected video to play currently.
+  const videoRef = useRef<HTMLVideoElement>(null); // Ref for the video element.
 
   const handleVideoItemClick = (index: number) => {
     setVideos((prev) => {
@@ -22,14 +22,14 @@ export function App(): JSX.Element {
       newVideos[currentVideoIndex].initialTime =
         videoRef.current?.currentTime ?? 0;
       return newVideos;
-    });
+    }); // When the new video is requested to be played by clicking on the playlist video, it stores the last timing of the last video. So that it can play it from that time when it is played again.
 
-    setSelectedVideo(videos[index]);
+    setSelectedVideo(videos[index]); // Selected video
 
     if (window.matchMedia("(max-width: 768px)").matches) {
       videoRef.current?.scrollIntoView({
         behavior: "smooth",
-      });
+      }); // In mobile view, scrolls to the top when a video is clicked from the video playlist. So that user will not have to scroll to screen when he/she chooses a video.
     }
   };
 
@@ -41,7 +41,7 @@ export function App(): JSX.Element {
       const output = [...newVideos, firstVideo];
       return output;
     });
-  }, []);
+  }, []); // An event handler to handle video end. It play the first video and rotate it (put the first video in the last), so that when the first video ends, it can play the next video.
 
   return (
     <div className="h-screen flex flex-col gap-4 py-4 box-border">
