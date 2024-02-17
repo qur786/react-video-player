@@ -62,9 +62,14 @@ export function App(): JSX.Element {
 
   return (
     <div className="h-screen flex flex-col gap-4 py-4 box-border">
-      <h2 className="text-center text-2xl text-sky-500 font-bold">
-        React Video Player
-      </h2>
+      <header className="flex flex-row justify-center w-full">
+        <h2 className="text-center text-2xl text-sky-500 font-bold">
+          React Video Player
+        </h2>
+        <button className="p-2 border-2 border-sky-500 text-sky-500 rounded-md hover:scale-110 transition-transform absolute right-4">
+          shortcuts
+        </button>
+      </header>
       <div className="w-full flex flex-col md:gap-4 md:flex-row box-border px-4">
         <VideoPlayer
           {...selectedVideo}
