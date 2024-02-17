@@ -1,8 +1,9 @@
-import { ShortcutHandlerDictionary } from "./shortcuts";
+import { Modal } from "./components/Modal";
 import { VIDEOS } from "./data";
 import type { VideoItem } from "./components/VideoItem";
 import { VideoPlayer } from "./components/VideoPlayer";
 import { VideoPlaylist } from "./components/VideoPlaylist";
+import { ShortcutDescription, ShortcutHandlerDictionary } from "./shortcuts";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function App(): JSX.Element {
@@ -11,6 +12,7 @@ export function App(): JSX.Element {
     VIDEOS[VIDEOS.length - 1],
   ); // The selected video to play currently.
   const videoRef = useRef<HTMLVideoElement>(null); // Ref for the video element.
+  const [shortcutModalOpen, setShortcutModalOpen] = useState(false);
 
   const handleVideoItemClick = (index: number) => {
     setVideos((prev) => {
@@ -44,11 +46,20 @@ export function App(): JSX.Element {
     });
   }, []); // An event handler to handle video end. It play the first video and rotate it (put the first video in the last), so that when the first video ends, it can play the next video.
 
+  const handleShortcutModalOpen = () => {
+    setShortcutModalOpen((prev) => !prev);
+  };
+
   useEffect(() => {
     const keyPressEventListener = (e: KeyboardEvent) => {
-      if (videoRef.current !== null && e.key in ShortcutHandlerDictionary) {
+      if (
+        videoRef.current !== null &&
+        (e.key in ShortcutHandlerDictionary || e.code === "Space")
+      ) {
         ShortcutHandlerDictionary[
-          e.key as keyof typeof ShortcutHandlerDictionary
+          (e.key === " "
+            ? "Space"
+            : e.key) as keyof typeof ShortcutHandlerDictionary
         ](videoRef.current);
       }
     };
@@ -61,27 +72,53 @@ export function App(): JSX.Element {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col gap-4 py-4 box-border">
-      <header className="flex flex-row justify-center w-full">
-        <h2 className="text-center text-2xl text-sky-500 font-bold">
-          React Video Player
-        </h2>
-        <button className="p-2 border-2 border-sky-500 text-sky-500 rounded-md hover:scale-110 transition-transform absolute right-4">
-          shortcuts
-        </button>
-      </header>
-      <div className="w-full flex flex-col md:gap-4 md:flex-row box-border px-4">
-        <VideoPlayer
-          {...selectedVideo}
-          ref={videoRef}
-          onVideoEnd={handleVideoEnd}
-        />
-        <VideoPlaylist
-          videos={videos}
-          updateVideos={setVideos}
-          onClick={handleVideoItemClick}
-        />
+    <>
+      <div className="h-screen flex flex-col gap-4 py-4 box-border">
+        <header className="flex flex-row justify-center w-full">
+          <h2 className="text-center text-2xl text-sky-500 font-bold">
+            React Video Player
+          </h2>
+          <button
+            className="p-2 border-2 border-sky-500 text-sky-500 rounded-md hover:scale-110 transition-transform absolute right-4"
+            onClick={handleShortcutModalOpen}
+          >
+            shortcuts
+          </button>
+        </header>
+        <div className="w-full flex flex-col md:gap-4 md:flex-row box-border px-4">
+          <VideoPlayer
+            {...selectedVideo}
+            ref={videoRef}
+            onVideoEnd={handleVideoEnd}
+          />
+          <VideoPlaylist
+            videos={videos}
+            updateVideos={setVideos}
+            onClick={handleVideoItemClick}
+          />
+        </div>
       </div>
-    </div>
+      <Modal open={shortcutModalOpen} setOpen={setShortcutModalOpen}>
+        <h5 className="text-2xl text-center mt-2 mb-6 text-sky-500 font-bold">
+          Shortcuts
+        </h5>
+        <table className="m-6 text-left border-separate border-spacing-x-4">
+          <thead>
+            <tr>
+              <th>Shortcuts</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(ShortcutDescription).map(([key, description]) => (
+              <tr key={key}>
+                <td>{key}</td>
+                <td className="opacity-50">{description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Modal>
+    </>
   );
 }
