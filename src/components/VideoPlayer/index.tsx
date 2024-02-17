@@ -109,6 +109,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       let metaDataLoadEventListener = () => {};
       let canPlayEventListener = () => {};
       let endEventListener = () => {};
+      let playbackRateChangeEventListener = () => {};
 
       if (video !== null) {
         playingEventListener = () => {
@@ -136,6 +137,10 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           onVideoEnd?.(video);
         };
 
+        playbackRateChangeEventListener = () => {
+          setPlayBackSpeed(video.playbackRate);
+        };
+
         video.addEventListener("playing", playingEventListener);
 
         video.addEventListener("pause", pauseEventListener);
@@ -147,6 +152,8 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         video.addEventListener("canplaythrough", canPlayEventListener);
 
         video.addEventListener("ended", endEventListener);
+
+        video.addEventListener("ratechange", playbackRateChangeEventListener);
       }
 
       return () => {
@@ -156,6 +163,10 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         video?.removeEventListener("loadedmetadata", metaDataLoadEventListener);
         video?.removeEventListener("canplaythrough", canPlayEventListener);
         video?.removeEventListener("ended", endEventListener);
+        video?.removeEventListener(
+          "ratechange",
+          playbackRateChangeEventListener,
+        );
       };
     }, [onVideoEnd]);
 
@@ -173,12 +184,6 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         setVolume(videoRef.current.volume);
       }
     }, []); // To store the volume in the state variable for the first time when the video is loaded.
-
-    useEffect(() => {
-      if (videoRef.current !== null) {
-        setPlayBackSpeed(videoRef.current.playbackRate);
-      }
-    }, [sources]); // To store the playback spped in the state when the video changes, since playback rate for each new video will be set to normal initially by default.
 
     return (
       <div className="w-full md:w-3/5 md:h-[90%] flex flex-col items-center box-border">
