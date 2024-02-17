@@ -26,18 +26,18 @@ function speedNormalShortcut(videoElement: HTMLVideoElement): void {
   videoElement.playbackRate = 1;
 }
 
-function jumpAheadShortcut(videoElement: HTMLVideoElement): void {
+function videoJumAheadShortcut(videoElement: HTMLVideoElement): void {
   videoElement.currentTime = Math.min(
     videoElement.currentTime + 10,
     videoElement.duration,
   );
 }
 
-function jumpBehindShortcut(videoElement: HTMLVideoElement): void {
+function videoJumBehindShortcut(videoElement: HTMLVideoElement): void {
   videoElement.currentTime = Math.max(videoElement.currentTime - 10, 0);
 }
 
-function startFromScratchShortcut(videoElement: HTMLVideoElement): void {
+function startVideoFromScratchShortcut(videoElement: HTMLVideoElement): void {
   videoElement.currentTime = 0;
 }
 
@@ -52,8 +52,8 @@ export const ShortcutHandlerDictionary = {
   S: speedIncreaseShortcut,
   s: speedDecreaseShortcut,
   n: speedNormalShortcut,
-  ArrowRight: jumpAheadShortcut,
-  ArrowLeft: jumpBehindShortcut,
+  ArrowRight: videoJumAheadShortcut,
+  ArrowLeft: videoJumBehindShortcut,
   f: fullScreenShortcut,
-  "0": startFromScratchShortcut,
+  "0": startVideoFromScratchShortcut,
 } as const;
