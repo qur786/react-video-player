@@ -68,11 +68,9 @@ export function VideoItem({
   };
   return (
     <div className="flex flex-row flex-shrink-0 gap-4 h-36 overflow-clip hover:cursor-pointer snap-start">
-      <div className="relative">
+      <div className="relative" onClick={handleClick} data-index={index}>
         <img
           src={thumbnail}
-          data-index={index}
-          onClick={handleClick}
           className="md:w-48 w-screen h-full rounded-lg object-cover peer hover:grayscale-[80%]"
         />
         <PlayIcon className="h-8 z-10 peer-hover:scale-150 hover:scale-150 peer transition-transform text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
