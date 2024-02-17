@@ -75,16 +75,17 @@ yarn start
 ## Project Structure
 
 react-video-player/
-├── public/ # Public assets and index.html
-├── src/ # Source files
-│ ├── components/ # React components
-│ ├── App.tsx # Main application component
-│ ├── data.ts # Video URLs data
-│ ├── shortcuts.ts # Utility functions for shortcuts
-│ ├── index.css # Entry CSS file
-│ └── main.tsx # Entry point
-├── package.json # Project dependencies and scripts
-└── README.md # Project documentation
+├── public/               # Public assets and index.html
+├── src/                  # Source files
+│   ├── components/       # React components
+│   ├── App.tsx           # Main application component
+│   ├── data.ts           # Video URLs data
+│   ├── shortcuts.ts      # Utility functions for shortcuts
+│   ├── index.css         # Entry CSS file
+│   └── main.tsx          # Entry point
+├── package.json          # Project dependencies and scripts
+└── README.md             # Project documentation
+
 
 ## Additional Notes
 
