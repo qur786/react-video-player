@@ -52,14 +52,10 @@ export function App(): JSX.Element {
 
   useEffect(() => {
     const keyPressEventListener = (e: KeyboardEvent) => {
-      if (
-        videoRef.current !== null &&
-        (e.key in ShortcutHandlerDictionary || e.code === "Space")
-      ) {
+      e.preventDefault();
+      if (videoRef.current !== null && e.key in ShortcutHandlerDictionary) {
         ShortcutHandlerDictionary[
-          (e.key === " "
-            ? "Space"
-            : e.key) as keyof typeof ShortcutHandlerDictionary
+          e.key as keyof typeof ShortcutHandlerDictionary
         ](videoRef.current);
       }
     };
