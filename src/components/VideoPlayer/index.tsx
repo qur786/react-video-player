@@ -199,7 +199,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
             </div>
           ) : undefined}
           <video
-            className="w-full h-full rounded-xl object-center bg-black video-thumbnail cursor-pointer"
+            className="w-full h-full rounded-xl object-center bg-black video-thumbnail cursor-pointer border"
             poster={thumbnail}
             ref={videoRef}
             onClick={handlePlayPauseClick}

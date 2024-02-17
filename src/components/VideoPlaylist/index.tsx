@@ -43,7 +43,7 @@ export function VideoPlaylist({
         placeholder="Search video by title"
         value={search}
         onChange={handleSearchChange}
-        className="border w-[80%] self-center box-border px-2 py-1 rounded-md border-black"
+        className="border w-[80%] self-center box-border px-2 py-1 rounded-md border-black text-black"
       />
       <List
         values={
