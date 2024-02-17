@@ -55,23 +55,23 @@ export const ShortcutHandlerDictionary = {
   ArrowRight: videoJumAheadShortcut,
   ArrowLeft: videoJumBehindShortcut,
   f: fullScreenShortcut,
-  "0": startVideoFromScratchShortcut,
+  0: startVideoFromScratchShortcut,
 } as const;
 
 export const ShortcutDescription: Record<
   keyof typeof ShortcutHandlerDictionary,
   string
 > = {
-  Space: "Press space bar to pause and play current video",
-  V: "Press V i.e. shift + v to increase volume by 10%",
-  v: "Press s to decrease volume by 10%",
-  S: "Press S i.e. shift + s to increase speed by 0.25x",
-  s: "Press s to decrease speed by 0.25x",
-  n: "Press n to make current video speed normal",
+  Space: "Press space bar to pause and play current video.",
+  V: "Press V to increase volume by 10%.",
+  v: "Press s to decrease volume by 10%.",
+  S: "Press S to increase speed by 0.25x.",
+  s: "Press s to decrease speed by 0.25x.",
+  n: "Press n to make current video speed normal.",
   ArrowRight:
-    "Press Arrow Right i.e. > to make current video jump ahead by 10 seconds",
+    "Press Arrow Right i.e. > to make current video jump ahead by 10 seconds.",
   ArrowLeft:
-    "Press Arrow Left i.e. < to make current video jump behind by 10 seconds",
-  f: "Press f to view video in full screen mode",
-  "0": "Press 0 to re-start the current video again",
+    "Press Arrow Left i.e. < to make current video jump behind by 10 seconds.",
+  f: "Press f to view video in full screen mode.",
+  0: "Press 0 to re-start the current video again.",
 } as const;
