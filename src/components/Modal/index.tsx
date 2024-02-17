@@ -41,7 +41,7 @@ export function Modal({ open, setOpen, children }: ModalProps): JSX.Element {
   return (
     <dialog
       ref={dialogRef}
-      className="z-20 rounded-2xl border-2 overflow-auto relative animate-position bg-[#121212] text-white"
+      className="z-20 rounded-2xl border-2 overflow-auto relative animate-position bg-[#121212] text-white custom-scroll"
     >
       <div>
         <button

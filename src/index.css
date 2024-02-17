@@ -17,48 +17,6 @@ body {
   cursor: pointer;
 }
 
-/* .progress-bar[value] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  border: none;
-
-  height: 5px;
-  border-radius: 12px;
-  background-color: rgb(67, 71, 67);
-}
-
-.progress-bar::-webkit-slider-runnable-track {
-  height: 5px;
-  background-color: red;
-}
-
-.progress-bar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.progress-bar::-moz-range-thumb {
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.progress-bar:hover::-webkit-slider-thumb {
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-  background: red;
-}
-
-.progress-bar:hover::-moz-range-thumb {
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-  background: red;
-} 
-*/
-
 .custom-scroll {
   scrollbar-width: thin;
 }
