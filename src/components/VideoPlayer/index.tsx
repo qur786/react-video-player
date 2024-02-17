@@ -237,7 +237,12 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
             </div>
             <div className="flex flex-row gap-2">
               <div className="flex flex-row-reverse group gap-2 items-center px-2">
-                <button className="peer group">
+                <button
+                  className="peer group after:content-[attr(data-content)] flex flex-row gap-2 after:text-white"
+                  data-content={volume.toLocaleString(undefined, {
+                    style: "percent",
+                  })}
+                >
                   {volume === 0 ? (
                     <SpeakerXMarkIcon className="h-6 text-white" />
                   ) : (
