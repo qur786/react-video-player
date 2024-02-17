@@ -220,6 +220,9 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
             value={currentTime}
             onChange={handleProgressChange}
             className="progress-bar"
+            onClick={(e) => {
+              e.stopPropagation();
+            }} // To prevent clicking of parent div
           />
           <div className="flex flex-row justify-between">
             <div className="flex flex-row gap-2">
