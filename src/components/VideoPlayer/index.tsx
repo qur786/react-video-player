@@ -56,7 +56,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       }
     };
 
-    const handleProgressChange: ChangeEventHandler<HTMLInputElement> = (
+    const handleCurrentTimeChange: ChangeEventHandler<HTMLInputElement> = (
       event,
     ) => {
       const value = Number.parseFloat(event.target.value);
@@ -218,7 +218,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
             min={0}
             max={duration}
             value={currentTime}
-            onChange={handleProgressChange}
+            onChange={handleCurrentTimeChange}
             className="progress-bar"
             onClick={(e) => {
               e.stopPropagation();
