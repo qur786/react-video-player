@@ -39,7 +39,10 @@ export function Modal({ open, setOpen, children }: ModalProps): JSX.Element {
   }, [open]);
 
   return (
-    <dialog ref={dialogRef} className="z-20 rounded-2xl border-2 overflow-auto">
+    <dialog
+      ref={dialogRef}
+      className="z-20 rounded-2xl border-2 overflow-auto relative animate-position"
+    >
       <div>
         <button
           onClick={handleCloseBtnClick}
