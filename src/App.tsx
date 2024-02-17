@@ -1,8 +1,9 @@
+import { ShortcutHandlerDictionary } from "./shortcuts";
 import { VIDEOS } from "./data";
 import type { VideoItem } from "./components/VideoItem";
 import { VideoPlayer } from "./components/VideoPlayer";
 import { VideoPlaylist } from "./components/VideoPlaylist";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function App(): JSX.Element {
   const [videos, setVideos] = useState<VideoItem[]>(VIDEOS); // The original videos.
@@ -42,6 +43,22 @@ export function App(): JSX.Element {
       return output;
     });
   }, []); // An event handler to handle video end. It play the first video and rotate it (put the first video in the last), so that when the first video ends, it can play the next video.
+
+  useEffect(() => {
+    const keyPressEventListener = (e: KeyboardEvent) => {
+      if (videoRef.current !== null && e.key in ShortcutHandlerDictionary) {
+        ShortcutHandlerDictionary[
+          e.key as keyof typeof ShortcutHandlerDictionary
+        ](videoRef.current);
+      }
+    };
+
+    document.addEventListener("keypress", keyPressEventListener);
+
+    return () => {
+      document.removeEventListener("keypress", keyPressEventListener);
+    };
+  }, []);
 
   return (
     <div className="h-screen flex flex-col gap-4 py-4 box-border">
