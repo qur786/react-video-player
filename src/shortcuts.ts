@@ -46,7 +46,7 @@ function fullScreenShortcut(videoElement: HTMLVideoElement): void {
 }
 
 export const ShortcutHandlerDictionary = {
-  Space: pauseAndPlayShortcut,
+  p: pauseAndPlayShortcut,
   V: volumeIncreaseShortcut,
   v: volumeDecreaseShortcut,
   S: speedIncreaseShortcut,
@@ -62,7 +62,7 @@ export const ShortcutDescription: Record<
   keyof typeof ShortcutHandlerDictionary,
   string
 > = {
-  Space: "Press space bar to pause and play current video.",
+  p: "Press p to pause and play current video.",
   V: "Press V to increase volume by 10%.",
   v: "Press s to decrease volume by 10%.",
   S: "Press S to increase speed by 0.25x.",
