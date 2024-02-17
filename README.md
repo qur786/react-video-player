@@ -91,3 +91,18 @@ react-video-player/
 - This project was completed within the given timeframe, adhering to most of the requirements specified in the assignment brief.
 - External libraries were used sparingly, with most features built in-house to ensure code quality and optimization.
 - Fullscreen mode utilizes default browser controls; custom controls are not implemented in fullscreen mode due to technical limitations.
+
+## Available shortcuts
+
+| Shortcuts | Description                                              |
+| --------- | -------------------------------------------------------- |
+| 0         | Press 0 to re-start the current video again.             |
+| p         | Press p to pause and play current video.                 |
+| V         | Press V to increase volume by 10%.                       |
+| v         | Press v to decrease volume by 10%.                       |
+| S         | Press S to increase speed by 0.25x.                      |
+| s         | Press s to decrease speed by 0.25x.                      |
+| n         | Press n to make current video speed normal.              |
+| w         | Press w to make current video jump ahead by 10 seconds.  |
+| q         | Press q to make current video jump behind by 10 seconds. |
+| f         | Press f to view video in full screen mode.               |
