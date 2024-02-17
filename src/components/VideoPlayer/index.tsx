@@ -110,6 +110,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
       let canPlayEventListener = () => {};
       let endEventListener = () => {};
       let playbackRateChangeEventListener = () => {};
+      let volumeChangeEventListener = () => {};
 
       if (video !== null) {
         playingEventListener = () => {
@@ -141,6 +142,10 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           setPlayBackSpeed(video.playbackRate);
         };
 
+        volumeChangeEventListener = () => {
+          setVolume(video.volume);
+        };
+
         video.addEventListener("playing", playingEventListener);
 
         video.addEventListener("pause", pauseEventListener);
@@ -154,6 +159,8 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         video.addEventListener("ended", endEventListener);
 
         video.addEventListener("ratechange", playbackRateChangeEventListener);
+
+        video.addEventListener("volumechange", volumeChangeEventListener);
       }
 
       return () => {
@@ -167,6 +174,7 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           "ratechange",
           playbackRateChangeEventListener,
         );
+        video?.removeEventListener("volumechange", volumeChangeEventListener);
       };
     }, [onVideoEnd]);
 
@@ -178,12 +186,6 @@ export const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         videoRef.current.currentTime = initialTime ?? 0;
       }
     }, [initialTime, sources]); // To reload video element when sources changes otherwise video won't change
-
-    useEffect(() => {
-      if (videoRef.current !== null) {
-        setVolume(videoRef.current.volume);
-      }
-    }, []); // To store the volume in the state variable for the first time when the video is loaded.
 
     return (
       <div className="w-full md:w-3/5 md:h-[90%] flex flex-col items-center box-border">
