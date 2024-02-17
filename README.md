@@ -74,6 +74,7 @@ yarn start
 
 ## Project Structure
 
+```
 react-video-player/
 ├── public/               # Public assets and index.html
 ├── src/                  # Source files
@@ -85,7 +86,7 @@ react-video-player/
 │   └── main.tsx          # Entry point
 ├── package.json          # Project dependencies and scripts
 └── README.md             # Project documentation
-
+```
 
 ## Additional Notes
 
