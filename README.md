@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project is a React.js-based video player application developed for the React Video Player App assignment by Rigi. It allows users to play videos from a playlist with essential features like play/pause toggle, seeking, timer, autoplay, and speed selector. Additionally, users can reorder the playlist and enjoy additional features such as fullscreen mode and keyboard shortcuts.
+This project is a React.js-based video player application. It allows users to play videos from a playlist with essential features like play/pause toggle, seeking, timer, autoplay, and speed selector. Additionally, users can reorder the playlist and enjoy additional features such as fullscreen mode and keyboard shortcuts.
 
 ## Running the Application Locally
 
